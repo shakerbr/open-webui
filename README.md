@@ -1,8 +1,8 @@
 # 🛠️ Open WebUI Tools & Functions Collection
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/open-webui?style=social)](https://github.com/yourusername/open-webui/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/shakerbr/open-webui?style=social)](https://github.com/shakerbr/open-webui/stargazers)
 [![Open WebUI](https://img.shields.io/badge/Open%20WebUI-Compatible-blueviolet)](https://github.com/open-webui/open-webui)
-[![Last Updated](https://img.shields.io/github/last-commit/yourusername/open-webui?color=brightgreen)](https://github.com/yourusername/open-webui/commits/main)
+[![Last Updated](https://img.shields.io/github/last-commit/shakerbr/open-webui?color=brightgreen)](https://github.com/shakerbr/open-webui/commits/main)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Author](https://img.shields.io/badge/author-shakerbr-blue.svg)](https://github.com/shakerbr)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -65,7 +65,7 @@ Each tool/function contains a `.py` file (e.g., `smart-actions-v1.py`). Click to
 
 ### Step 4: Import into Open WebUI
 1. Open your **Open WebUI** instance
-2. Navigate to **Admin Panel → Functions** (or **Tools**)
+2. Navigate to **Admin Panel → Functions** (or **Workspace → Tools**)
 3. Click **Import** or **+ Add**
 4. Paste the copied code into the editor
 5. Save the function/tool
