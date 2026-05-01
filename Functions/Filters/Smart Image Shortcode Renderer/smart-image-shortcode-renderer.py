@@ -76,7 +76,7 @@ class Filter:
     def __init__(self):
         self.valves = self.Valves()
         self.toggle = True  # Makes filter toggleable in UI
-        self.icon = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiI+PG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9IkltYWdlIGljb24iLz48cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHJ4PSIyIi8+PGNpcmNsZSBjeD0iOC41IiBjeT0iOC41IiByPSIxLjUiLz48cGF0aCBkPSJNMjEgMTVsLTUtNS01IDVoMTB6Ii8+PC9zdmc+"
+        self.icon = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmNGI0YiIgc3Ryb2tlPSIjZmY0YjRiIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iMiI+DQogIDxyZWN0IHg9IjMiIHk9IjYuMDkiIHdpZHRoPSIxOCIgaGVpZ2h0PSIxMS44MiIgcng9IjIiIHJ5PSIyIiBmaWxsPSJub25lIi8+DQogIDxjaXJjbGUgY3g9IjYuNjYiIGN5PSI5LjY0IiByPSIuNjMiLz4NCiAgPHBhdGggZD0iTTExLjY4IDE0LjQ1bC0xLjgzLS44OGMtLjI2LS4xOC0uNjMtLjE4LS44OSAwbC00LjAyIDEuOTNjLS40OS4zNC0uMTkgMS4wMi40NCAxLjAyaDEyLjI1YzIuMTQgMCAzLjMxLTIuMDggMS45Ni0zLjQ4bC0yLjYxLTIuNjhjLS4xMS0uMTEtLjMtLjEyLS40Mi0uMDItMS4wMi44Ny00Ljg5IDQuMTEtNC44OSA0LjExaC4wMXoiLz4NCiAgPHBhdGggZmlsbD0ibm9uZSIgZD0iTTMgM2gxOE0zIDIxaDE4Ii8+DQo8L3N2Zz4NCg=="
         self._directive_marker = "\u200b\u200c\u200b"  # invisible marker
 
     # ------------------------------------------------------------------ #
