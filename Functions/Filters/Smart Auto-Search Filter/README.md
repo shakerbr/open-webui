@@ -56,12 +56,6 @@ The filter will:
 
 ---
 
-## 🖼️ Showcase
-
-![Showcase of Smart Auto-Search Filter](image-placeholder.png)
-
----
-
 ## ⚠️ Requirements
 
 > [!IMPORTANT]
