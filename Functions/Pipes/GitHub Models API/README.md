@@ -120,10 +120,6 @@ The following OpenAI-compatible parameters are passed through to the API:
 - `presence_penalty` — Penalize repeated topics
 - `frequency_penalty` — Penalize repeated tokens
 
-## Showcase
-
-![Showcase of GitHub Models API](image-placeholder.png)
-
 ## Troubleshooting
 
 | Issue | Solution |
@@ -149,3 +145,9 @@ The following OpenAI-compatible parameters are passed through to the API:
 
 > [!IMPORTANT]
 > This is an community-maintained pipe and is not officially affiliated with GitHub or Microsoft.
+
+---
+
+<p align="center">
+  Made with ❤️ for the <strong>Open WebUI community</strong>
+</p>
