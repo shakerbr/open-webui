@@ -112,9 +112,27 @@ Configure the plugin through Open WebUI's valve settings:
 
 ## Showcase
 
-![Showcase of Smart Actions V2](image-placeholder.png)
+### Action Menu
+![Action Menu](media/action-menu.png)
 
-> 📸 *Screenshots demonstrating the plugin in action*
+### 🌐 Translation
+![Translation](media/translation.png)
+
+### 📝 Markdown Export
+![Markdown Export](media/export-md.png)
+
+### 🎧 Read Aloud
+![Read Aloud](media/read-aloud.png)
+
+### 💻 HTML Export
+https://github.com/user-attachments/assets/export-html.mp4
+
+> 🎬 *See [export-html.mp4](media/export-html.mp4) for a video demo of the HTML export feature.*
+
+### 🌐 Web Bundle Export
+https://github.com/user-attachments/assets/export-web.mp4
+
+> 🎬 *See [export-web.mp4](media/export-web.mp4) for a video demo of the Web Bundle export feature.*
 
 ---
 
@@ -158,7 +176,7 @@ Smart Actions V2
 | Translation | ✅ | ✅ |
 | RTL Support | ✅ | ✅ |
 | DOCX Export | ✅ | ✅ |
-| Markdown Export | ❌ | ✅ |
+| Markdown Export | ✅ | ✅ |
 | Code Block Export | ❌ | ✅ |
 | Web Bundle Export | ❌ | ✅ |
 | Text Format Exports | ❌ | ✅ |

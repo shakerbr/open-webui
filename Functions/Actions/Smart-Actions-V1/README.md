@@ -6,7 +6,7 @@
 [![Author](https://img.shields.io/badge/author-shakerbr-blue.svg)](https://github.com/shakerbr)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> A universal multi-tool widget framework for Open WebUI that provides message actions for translation and document export capabilities.
+> A universal multi-tool widget framework for Open WebUI that provides message actions for translation, document export, and markdown export capabilities.
 
 ---
 
@@ -23,6 +23,9 @@ Translates messages to any language using your active chat model. Supports compl
 
 ### 📄 DOCX Export
 Converts messages to professionally formatted Word documents with full markdown rendering. Perfect for archiving conversations or sharing content externally.
+
+### 📝 Markdown Export
+Export messages as clean `.md` files with preserved markdown formatting. Ideal for documentation workflows and note-taking applications.
 
 ### 🔤 RTL Language Support
 Automatically detects and properly formats Right-to-Left languages including:
@@ -63,7 +66,8 @@ Configure the plugin through Open WebUI's valve settings:
 
 2. **Choose Your Action**:
    - **Translate**: Type a language name (e.g., `Arabic`, `French`, `Spanish`, `Kurdish`)
-   - **Export**: Type `docx` to download the message as a Word document
+   - **Export DOCX**: Type `docx` to download the message as a Word document
+   - **Export Markdown**: Type `md` to download the message as a Markdown file
 
 3. **View Results**: 
    - Translations appear in an elegant widget with copy functionality
@@ -80,9 +84,11 @@ Configure the plugin through Open WebUI's valve settings:
 
 ## Showcase
 
-![Showcase of Smart Actions V1](image-placeholder.png)
+### 🌐 Translation
+![Translation](../Smart-Actions-V2/media/translation.png)
 
-> 📸 *Screenshots demonstrating the plugin in action*
+### 📝 Markdown Export
+![Markdown Export](../Smart-Actions-V2/media/export-md.png)
 
 ---
 
@@ -99,6 +105,7 @@ Configure the plugin through Open WebUI's valve settings:
 Smart Actions V1
 ├── Translation Engine (uses active model API)
 ├── DOCX Generator (client-side HTML-to-DOCX conversion)
+├── Markdown Exporter
 ├── RTL Detector (Unicode-based script analysis)
 └── Theme Adapter (CSS custom properties)
 ```
