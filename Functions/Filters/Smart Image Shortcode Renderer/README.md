@@ -113,10 +113,7 @@ Configure your own image generation backend:
 
 ## Showcase
 
-![Showcase of Smart Image Shortcode Renderer](image-placeholder.png)
-
-> [!NOTE]
-> Replace `image-placeholder.png` with an actual screenshot demonstrating the filter in action.
+![Showcase of Smart Image Shortcode Renderer](media/showcase.png)
 
 ---
 
@@ -154,7 +151,9 @@ The filter intelligently skips processing shortcodes inside:
 2. Open Open WebUI → Admin Panel → Functions
 3. Click the `+` button to add a new function
 4. Paste the code and save
-5. Enable the filter in your model settings
+5. Before using it in a chat, make sure to enable (toggle) the filter from the **Tools** menu in your chat interface:
+
+![Enable from Tools](media/enable-from-tools.png)
 
 ---
 
@@ -182,5 +181,5 @@ MIT License — See [LICENSE](LICENSE) for details.
 ---
 
 <p align="center">
-  Made with ❤️ for the <strong>self-hosting community</strong>
+  Made with ❤️ for the <strong>Open WebUI community</strong>
 </p>

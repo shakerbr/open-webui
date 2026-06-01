@@ -177,6 +177,72 @@ class Filter:
         return await asyncio.to_thread(self._sync_verify_image_url, url, timeout)
 
     # ------------------------------------------------------------------ #
+    #  LIGHTWEIGHT URL FILTER (no HTTP requests)                           #
+    # ------------------------------------------------------------------ #
+    _BLOCKED_EXTENSIONS = {
+        ".svg", ".html", ".htm", ".js", ".css", ".json", ".xml",
+        ".php", ".asp", ".aspx", ".pdf", ".zip", ".mp4", ".mp3",
+    }
+    _MIN_IMAGE_BYTES = 5000  # reject images < 5 KB (icons, tracking pixels)
+
+    def _is_candidate_image_url(self, url: str) -> bool:
+        """Fast, no-network check: reject SVGs, non-http, and obvious junk."""
+        if not url or not url.startswith("http"):
+            return False
+        path = urllib.parse.urlparse(url).path.lower()
+        for ext in self._BLOCKED_EXTENSIONS:
+            if path.endswith(ext):
+                return False
+        if len(path.strip("/")) < 2:
+            return False
+        return True
+
+    # ------------------------------------------------------------------ #
+    #  SOFT VERIFICATION (lenient HEAD-only check)                         #
+    # ------------------------------------------------------------------ #
+    def _sync_soft_verify(self, url: str) -> bool:
+        """Lenient check: HEAD-only, accept real photos, reject tiny junk.
+        Returns True on ambiguity (timeout, missing headers) so we don't
+        accidentally block legitimate images from protective hosts."""
+        headers = {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/124.0.0.0 Safari/537.36"
+            ),
+            "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+        }
+        try:
+            res = requests.head(
+                url, headers=headers, timeout=3, allow_redirects=True
+            )
+            if res.status_code in (403, 401, 429):
+                # Host is blocking bots — assume the image is real
+                return True
+            if res.status_code != 200:
+                return False
+            ct = res.headers.get("Content-Type", "").lower()
+            # Reject if server explicitly says it's NOT an image
+            if ct and not ct.startswith("image/") and "octet-stream" not in ct:
+                return False
+            # Reject SVGs that slipped through URL filter
+            if "svg" in ct:
+                return False
+            # Reject tiny images (icons, tracking pixels, spacers)
+            cl = res.headers.get("Content-Length", "")
+            if cl.isdigit() and int(cl) < self._MIN_IMAGE_BYTES:
+                return False
+            return True
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
+            # Network issue — give it the benefit of the doubt
+            return True
+        except Exception:
+            return True
+
+    async def soft_verify(self, url: str) -> bool:
+        return await asyncio.to_thread(self._sync_soft_verify, url)
+
+    # ------------------------------------------------------------------ #
     #  SMART QUERY REFINEMENT                                             #
     # ------------------------------------------------------------------ #
     def _build_query_variations(self, raw_query: str, context: str = "") -> list:
@@ -215,7 +281,33 @@ class Filter:
         except Exception:
             return []
 
+    # ------------------------------------------------------------------ #
+    #  RELEVANCE SCORING                                                   #
+    # ------------------------------------------------------------------ #
+    def _relevance_score(self, query: str, title: str, content: str, img_url: str) -> float:
+        """Score how relevant a search result is to the query.
+        Returns 0.0 – 1.0.  Results scoring 0 are discarded entirely."""
+        query_words = set(re.findall(r"\b\w{2,}\b", query.lower()))
+        if not query_words:
+            return 1.0  # can't score, accept everything
+
+        # Build a haystack from all available metadata
+        haystack = f"{title} {content}".lower()
+        url_path = urllib.parse.urlparse(img_url).path.lower()
+        url_decoded = urllib.parse.unquote(url_path).replace("-", " ").replace("_", " ")
+
+        # Count how many query words appear in title+content vs URL
+        text_hits = sum(1 for w in query_words if w in haystack)
+        url_hits = sum(1 for w in query_words if w in url_decoded)
+
+        # Title+content matches are worth more than URL path matches
+        score = (text_hits * 1.0 + url_hits * 0.5) / len(query_words)
+        return min(score, 1.0)
+
+    _MIN_RELEVANCE = 0.3  # at least ~1/3 of query words must appear somewhere
+
     async def _search_single_query(self, query: str) -> dict:
+        # ── SearXNG ────────────────────────────────────────────────────────
         try:
             url = f"{self.valves.SEARXNG_BASE_URL.rstrip('/')}/search"
             params = {"q": query, "format": "json", "categories": "images"}
@@ -224,38 +316,68 @@ class Filter:
             )
             if res.status_code == 200:
                 results = res.json().get("results", [])
+                # Pre-filter by URL shape
                 candidates = [
-                    img.get("img_src") for img in results[:15] if img.get("img_src")
+                    img for img in results[:15]
+                    if self._is_candidate_image_url(img.get("img_src", ""))
                 ]
-                verification = await asyncio.gather(
-                    *[self.verify_image_url(u) for u in candidates]
-                )
-                for i, valid in enumerate(verification):
-                    if valid:
-                        img = results[i]
-                        return {
-                            "url": candidates[i],
-                            "title": img.get("title", query),
-                            "source": img.get("url", candidates[i]),
-                            "type": "search",
-                        }
+                # Score by relevance and sort best-first
+                scored = []
+                for img in candidates:
+                    s = self._relevance_score(
+                        query,
+                        img.get("title", ""),
+                        img.get("content", ""),
+                        img.get("img_src", ""),
+                    )
+                    if s >= self._MIN_RELEVANCE:
+                        scored.append((s, img))
+                scored.sort(key=lambda x: x[0], reverse=True)
+                # Soft-verify in parallel (lenient, fast)
+                if scored:
+                    checks = await asyncio.gather(
+                        *[self.soft_verify(img["img_src"]) for _, img in scored]
+                    )
+                    for (_, img), ok in zip(scored, checks):
+                        if ok:
+                            return {
+                                "url": img["img_src"],
+                                "title": img.get("title", query),
+                                "source": img.get("url", img["img_src"]),
+                                "type": "search",
+                            }
         except Exception:
             pass
+        # ── DuckDuckGo fallback ────────────────────────────────────────────
         try:
             results = await asyncio.to_thread(self._sync_ddgs_search, query)
-            candidates = [img.get("image") for img in results if img.get("image")]
-            verification = await asyncio.gather(
-                *[self.verify_image_url(u) for u in candidates[:15]]
-            )
-            for i, valid in enumerate(verification):
-                if valid:
-                    img = results[i]
-                    return {
-                        "url": candidates[i],
-                        "title": img.get("title", query),
-                        "source": img.get("url", candidates[i]),
-                        "type": "search",
-                    }
+            candidates = [
+                img for img in results[:15]
+                if self._is_candidate_image_url(img.get("image", ""))
+            ]
+            scored = []
+            for img in candidates:
+                s = self._relevance_score(
+                    query,
+                    img.get("title", ""),
+                    img.get("content", ""),
+                    img.get("image", ""),
+                )
+                if s >= self._MIN_RELEVANCE:
+                    scored.append((s, img))
+            scored.sort(key=lambda x: x[0], reverse=True)
+            if scored:
+                checks = await asyncio.gather(
+                    *[self.soft_verify(img["image"]) for _, img in scored]
+                )
+                for (_, img), ok in zip(scored, checks):
+                    if ok:
+                        return {
+                            "url": img["image"],
+                            "title": img.get("title", query),
+                            "source": img.get("url", img["image"]),
+                            "type": "search",
+                        }
         except Exception:
             pass
         return {}
