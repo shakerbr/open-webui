@@ -1091,7 +1091,7 @@ window.onload=function(){
         model_to_use = (
             self.valves.TRANSLATION_MODEL
             if self.valves.TRANSLATION_MODEL
-            else body.get("model", "")
+            else body.get("model") or ""
         )
         headers = {"Content-Type": "application/json"}
         if __request__ and "Authorization" in __request__.headers:
@@ -1107,6 +1107,7 @@ window.onload=function(){
                 {"role": "user", "content": masked_text},
             ],
             "stream": False,
+            "chat_id": body.get("chat", {}).get("id", body.get("id", "")),
         }
 
         is_error = False
