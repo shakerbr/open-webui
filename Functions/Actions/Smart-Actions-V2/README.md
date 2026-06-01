@@ -211,4 +211,6 @@ Created by **[@shakerbr](https://github.com/shakerbr)**
 
 ---
 
-> Made with ❤️ for the self-hosting community
+<p align="center">
+  Made with ❤️ for the <strong>Open WebUI community</strong>
+</p>

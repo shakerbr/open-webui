@@ -128,3 +128,9 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 > [!IMPORTANT]
 > This filter processes all chat messages. Ensure your Langfuse instance is properly secured and your API keys are kept confidential.
+
+---
+
+<p align="center">
+  Made with ❤️ for the <strong>Open WebUI community</strong>
+</p>

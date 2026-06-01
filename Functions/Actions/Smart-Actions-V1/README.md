@@ -148,4 +148,6 @@ This project is licensed under the MIT License—feel free to use, modify, and d
 
 ---
 
-> Made with ❤️ for the Open WebUI community
+<p align="center">
+  Made with ❤️ for the <strong>Open WebUI community</strong>
+</p>

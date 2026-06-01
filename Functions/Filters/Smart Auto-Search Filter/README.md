@@ -106,3 +106,9 @@ Found a bug or have an improvement? Contributions are welcome! Feel free to subm
 ## 📜 License
 
 This project is provided as-is for use with Open WebUI. Modify and distribute freely.
+
+---
+
+<p align="center">
+  Made with ❤️ for the <strong>Open WebUI community</strong>
+</p>
