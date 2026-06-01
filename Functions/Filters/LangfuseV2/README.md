@@ -77,12 +77,6 @@ USE_MODEL_NAME=false
 - Set `host` to your Langfuse instance URL
 - Enable `debug` for troubleshooting if needed
 
-## Showcase
-
-![Showcase of Langfuse V2](image-placeholder.png)
-
-*The Langfuse dashboard displaying traces, spans, and generations from Open WebUI conversations.*
-
 ## How It Works
 
 ```mermaid
