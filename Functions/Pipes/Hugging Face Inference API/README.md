@@ -140,10 +140,6 @@ The following OpenAI-compatible parameters are passed through to the API:
 | `presence_penalty` | Penalize repeated topics |
 | `frequency_penalty` | Penalize repeated tokens |
 
-## Showcase
-
-![Showcase of Hugging Face Inference API](image-placeholder.png)
-
 ## Troubleshooting
 
 | Issue | Solution |
@@ -171,3 +167,9 @@ The following OpenAI-compatible parameters are passed through to the API:
 
 > [!IMPORTANT]
 > This is a community-maintained pipe and is not officially affiliated with Hugging Face. Model availability and pricing may change — always check the [official documentation](https://huggingface.co/docs/api-inference) for the latest information.
+
+---
+
+<p align="center">
+  Made with ❤️ for the <strong>Open WebUI community</strong>
+</p>
