@@ -204,15 +204,6 @@ Example: "Batman? I always knew there was something dark and mysterious about yo
 
 ---
 
-## Showcase
-
-![Showcase of Smart Memory Agent](image-placeholder.png)
-
-> [!NOTE]
-> Screenshots demonstrating the tool in action will be added here.
-
----
-
 ## Technical Details
 
 ### Dependencies
@@ -257,7 +248,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Made with ❤️ by [shakerbr](https://github.com/shakerbr)**
+**Made with ❤️ by [shakerbr](https://github.com/shakerbr)** for the <strong>Open WebUI community</strong>
 
 [![GitHub](https://img.shields.io/badge/GitHub-shakerbr-black?logo=github)](https://github.com/shakerbr)
 
