@@ -165,10 +165,6 @@ The following OpenAI-compatible parameters are passed through to the API:
 
 The pipe includes a standard browser User-Agent header to prevent Cloudflare or WAF (Web Application Firewall) from silently blocking requests. This ensures reliable connectivity to Puter's API.
 
-## Showcase
-
-![Showcase of Puter Models API](image-placeholder.png)
-
 ## Troubleshooting
 
 | Issue | Solution |
@@ -195,3 +191,9 @@ The pipe includes a standard browser User-Agent header to prevent Cloudflare or 
 
 > [!IMPORTANT]
 > This is a community-maintained pipe and is not officially affiliated with Puter. Puter's API and model availability may change. Visit [puter.com](https://puter.com) for the latest information on their services and terms of use.
+
+---
+
+<p align="center">
+  Made with ❤️ for the <strong>Open WebUI community</strong>
+</p>
